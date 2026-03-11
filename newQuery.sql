@@ -72,6 +72,11 @@ SELECT *,(SELECT m.[Name] FROM Meals m WHERE o.MealID = m.id),(SELECT t.[No] FRO
 -- Bütün masa datalarını yanında o masının sifarişlərinin ümumi məbləği ilə select edən query 
 SELECT *, (SELECT SUM(m.Price) FROM Orders o JOIN Meals m ON o.MealID = m.id WHERE o.TableID = t.id) AS TotalAmount FROM [Tables] t
 
+SELECT o.TableID, t.No ,SUM(m.Price) FROM Orders o
+JOIN Meals m ON o.MealID = m.id
+JOIN [Tables] t ON t.id = o.TableID
+GROUP BY o.TableID, t.No
+
 --query6
 --1-idli masaya verilmis ilk sifarişlə son sifariş arasında neçə saat fərq olduğunu select edən query
 SELECT MIN(o.Date),MAX(o.Date) FROM Orders o
